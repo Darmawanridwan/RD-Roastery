@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f3efe6">
+  <title>Build Your Coffee Profile — RD Roastery</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #f3efe6;
+      --paper: #faf8f2;
+      --ink: #211711;
+      --muted: #756b60;
+      --line: #ded7cb;
+      --input: #f1ede4;
+      --green: #414e3b;
+      --danger: #8b3028;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    /* NAVIGATION */
+
+    .navbar {
+      height: 60px;
+      padding: 0 5.8%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--cream);
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      z-index: 5;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      font: 26px/1 "Cormorant Garamond", serif;
+      letter-spacing: 1px;
+    }
+
+    .brand-name {
+      font-size: 7px;
+      font-weight: 600;
+      letter-spacing: .3px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 27px;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 7px 0;
+      font-size: 8px;
+      text-transform: uppercase;
+    }
+
+    .nav-links a:hover {
+      opacity: .65;
+    }
+
+    .nav-links a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: var(--ink);
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 0;
+      background: none;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* PAGE INTRO */
+
+    .page-intro {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: center;
+      gap: 7%;
+      padding: 31px 5.8% 35px;
+      background: var(--cream);
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 13px;
+      font-size: 7px;
+      line-height: 1.5;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 17px;
+      height: 1px;
+      flex-shrink: 0;
+      background: var(--muted);
+    }
+
+    h1, h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 500;
+    }
+
+    .page-intro h1 {
+      max-width: 570px;
+      font-size: clamp(35px, 4.4vw, 54px);
+      line-height: .94;
+      letter-spacing: -.2px;
+      text-transform: uppercase;
+    }
+
+    .intro-description {
+      max-width: 300px;
+      justify-self: end;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.9;
+    }
+
+    /* FORM */
+
+    .form-container {
+      padding: 0 5.8%;
+      background: var(--paper);
+    }
+
+    .profile-form {
+      width: 100%;
+    }
+
+    .form-section {
+      display: grid;
+      grid-template-columns: .38fr 1fr;
+      gap: 8%;
+      padding: 31px 0 35px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-heading .section-number {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 7px;
+      letter-spacing: .3px;
+    }
+
+    .section-heading h2 {
+      max-width: 180px;
+      font-size: clamp(23px, 2.3vw, 31px);
+      line-height: .98;
+      text-transform: uppercase;
+    }
+
+    .section-rule {
+      display: block;
+      width: 22px;
+      height: 1px;
+      margin-top: 10px;
+      background: var(--green);
+    }
+
+    .fields-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px 18px;
+      align-content: start;
+    }
+
+    .field {
+      min-width: 0;
+    }
+
+    .field.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 7px;
+      font-weight: 600;
+      letter-spacing: .1px;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 34px;
+      padding: 9px 11px;
+      border: 1px solid #e6dfd4;
+      border-radius: 0;
+      outline: none;
+      background: var(--input);
+      color: var(--ink);
+      font-size: 9px;
+      transition: border-color .2s, background .2s;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #94887a;
+      opacity: 1;
+    }
+
+    .field select {
+      cursor: pointer;
+      padding-right: 24px;
+    }
+
+    .field textarea {
+      min-height: 83px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--green);
+      background: #fffdf8;
+    }
+
+    .field input:invalid:not(:placeholder-shown) {
+      border-color: var(--danger);
+    }
+
+    .form-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 22px 0 34px;
+    }
+
+    .submit-button {
+      min-height: 38px;
+      padding: 0 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 7px;
+      font-weight: 500;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+
+    .submit-button:hover:not(:disabled) {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .submit-button:disabled {
+      cursor: wait;
+      opacity: .6;
+    }
+
+    .form-message {
+      display: none;
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .form-message.success {
+      display: block;
+      border-color: #b5c3ad;
+      background: #edf1e8;
+      color: #31432c;
+    }
+
+    .form-message.error {
+      display: block;
+      border-color: #d7b1a9;
+      background: #f8ece9;
+      color: var(--danger);
+    }
+
+    .required-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 8px;
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    /* FOOTER */
+
+    .footer {
+      padding: 36px 5.8% 15px;
+      background: var(--ink);
+      color: var(--cream);
+    }
+
+    .footer-main {
+      min-height: 155px;
+      display: flex;
+      justify-content: space-between;
+      gap: 35px;
+    }
+
+    .footer-tagline {
+      margin-top: 14px;
+      font: 21px/1.2 "Cormorant Garamond", serif;
+    }
+
+    .footer-info {
+      display: grid;
+      grid-template-columns: .8fr 1.5fr;
+      gap: 27px;
+      min-width: 255px;
+    }
+
+    .footer-column h3 {
+      margin-bottom: 10px;
+      color: #c4b7a5;
+      font-size: 7px;
+      font-weight: 500;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+    }
+
+    .footer-column p,
+    .footer-column a {
+      display: block;
+      margin-bottom: 5px;
+      color: #e0d7cb;
+      font-size: 8px;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .footer-column a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      min-height: 31px;
+      padding-top: 13px;
+      border-top: 1px solid #46382e;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 15px;
+      color: #a69a8b;
+      font-size: 6px;
+      letter-spacing: .2px;
+      text-transform: uppercase;
+    }
+
+    .legal-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (min-width: 1200px) {
+      .page-intro {
+        padding-top: 39px;
+        padding-bottom: 42px;
+      }
+
+      .form-section {
+        padding-top: 38px;
+        padding-bottom: 40px;
+      }
+
+      .field input,
+      .field select {
+        min-height: 39px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .navbar {
+        height: 62px;
+        padding: 0 5%;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 61px;
+        left: 0;
+        right: 0;
+        padding: 18px 5% 22px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        background: var(--cream);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        font-size: 11px;
+      }
+
+      .page-intro {
+        grid-template-columns: 1fr;
+        gap: 19px;
+        padding: 31px 6% 33px;
+      }
+
+      .page-intro h1 {
+        font-size: clamp(36px, 9vw, 49px);
+      }
+
+      .intro-description {
+        justify-self: start;
+        font-size: 10px;
+      }
+
+      .form-container {
+        padding: 0 6%;
+      }
+
+      .form-section {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 30px 0;
+      }
+
+      .section-heading h2 {
+        max-width: 260px;
+        font-size: 28px;
+      }
+
+      .fields-grid {
+        gap: 16px 12px;
+      }
+
+      .field label {
+        font-size: 8px;
+      }
+
+      .field input,
+      .field select,
+      .field textarea {
+        min-height: 40px;
+        padding: 10px;
+        font-size: 11px;
+      }
+
+      .field textarea {
+        min-height: 100px;
+      }
+
+      .submit-button {
+        min-height: 42px;
+        font-size: 8px;
+      }
+
+      .footer {
+        padding: 32px 6% 17px;
+      }
+
+      .footer-main {
+        flex-direction: column;
+        gap: 32px;
+        padding-bottom: 30px;
+      }
+
+      .footer-tagline {
+        font-size: 24px;
+      }
+
+      .footer-info {
+        grid-template-columns: 1fr 1.5fr;
+        gap: 22px;
+      }
+
+      .footer-column h3 {
+        font-size: 8px;
+      }
+
+      .footer-column p,
+      .footer-column a {
+        font-size: 10px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        font-size: 7px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .fields-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full-width {
+        grid-column: auto;
+      }
+
+      .footer-info {
+        grid-template-columns: 1fr;
+      }
+
+      .form-actions {
+        align-items: stretch;
+      }
+
+      .submit-button {
+        width: 100%;
+      }
+
+      .required-note {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <header class="navbar">
+    <a class="brand" href="/index.html" aria-label="RD Roastery Home">
+      <span class="brand-mark">RD</span>
+      <span class="brand-name">ROASTERY</span>
+    </a>
+
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      aria-expanded="false"
+      aria-controls="navLinks"
+    >
+      MENU ☰
+    </button>
+
+    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+      <a href="/index.html">Home</a>
+      <a href="/products.html">Product</a>
+      <a href="/business.html" class="active">Business</a>
+      <a href="/about.html">About Us</a>
+    </nav>
+  </header>
+
+  <!-- INTRO -->
+  <section class="page-intro">
+    <div>
+      <p class="eyebrow">Custom Coffee Profile</p>
+      <h1>Build Your Coffee Profile</h1>
+    </div>
+
+    <p class="intro-description">
+      Tell us about your business and coffee preference.
+      Ceritakan sedikit tentang bisnis dan karakter kopi
+      yang kamu cari.
+    </p>
+  </section>
+
+  <!-- FORM -->
+  <main class="form-container">
+    <form class="profile-form" id="profileForm">
+
+      <!-- BUSINESS INFORMATION -->
+      <section class="form-section">
+        <div class="section-heading">
+          <span class="section-number">01</span>
+          <h2>Business Information</h2>
+          <span class="section-rule"></span>
+        </div>
+
+        <div class="fields-grid">
+          <div class="field">
+            <label for="business_name">Business Name *</label>
+            <input
+              type="text"
+              id="business_name"
+              name="business_name"
+              placeholder="Masukkan nama bisnis atau brand kamu"
+              maxlength="150"
+              autocomplete="organization"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="business_type">Business Type *</label>
+            <select id="business_type" name="business_type" required>
+              <option value="">Pilih jenis bisnis atau outlet kamu</option>
+              <option value="Coffee Shop">Coffee Shop</option>
+              <option value="Restaurant">Restaurant</option>
+              <option value="Hotel">Hotel</option>
+              <option value="Bakery">Bakery</option>
+              <option value="Roastery">Roastery</option>
+              <option value="Cafe">Cafe</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="pic_name">PIC Name *</label>
+            <input
+              type="text"
+              id="pic_name"
+              name="pic_name"
+              placeholder="Nama orang yang akan kami hubungi"
+              maxlength="100"
+              autocomplete="name"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="whatsapp">WhatsApp *</label>
+            <input
+              type="tel"
+              id="whatsapp"
+              name="whatsapp"
+              placeholder="Contoh: +62 812 3456 7890"
+              maxlength="20"
+              autocomplete="tel"
+              required
+            >
+          </div>
+
+          <div class="field full-width">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email bisnis untuk follow-up"
+              maxlength="100"
+              autocomplete="email"
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- COFFEE PREFERENCE -->
+      <section class="form-section">
+        <div class="section-heading">
+          <span class="section-number">02</span>
+          <h2>Coffee Preference</h2>
+          <span class="section-rule"></span>
+        </div>
+
+        <div class="fields-grid">
+          <div class="field">
+            <label for="bean_preference">Bean Preference *</label>
+            <select id="bean_preference" name="bean_preference" required>
+              <option value="">Pilih preferensi biji kopi</option>
+              <option value="House Blend">House Blend</option>
+              <option value="Single Origin">Single Origin</option>
+              <option value="Filter Coffee">Filter Coffee</option>
+              <option value="Espresso Blend">Espresso Blend</option>
+              <option value="Custom Blend">Custom Blend</option>
+              <option value="Need Consultation">Need Consultation</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="brewing_method">Brewing Method *</label>
+            <select id="brewing_method" name="brewing_method" required>
+              <option value="">Pilih metode brew utama</option>
+              <option value="Espresso">Espresso</option>
+              <option value="Manual Brew">Manual Brew</option>
+              <option value="V60">V60</option>
+              <option value="French Press">French Press</option>
+              <option value="AeroPress">AeroPress</option>
+              <option value="Cold Brew">Cold Brew</option>
+              <option value="Multiple Methods">Multiple Methods</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="roast_level">Roast Level *</label>
+            <select id="roast_level" name="roast_level" required>
+              <option value="">Pilih tingkat roast yang kamu inginkan</option>
+              <option value="Light">Light</option>
+              <option value="Medium Light">Medium Light</option>
+              <option value="Medium">Medium</option>
+              <option value="Medium Dark">Medium Dark</option>
+              <option value="Dark">Dark</option>
+              <option value="Need Recommendation">Need Recommendation</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="taste_profile">Taste Profile *</label>
+            <select id="taste_profile" name="taste_profile" required>
+              <option value="">Pilih profil rasa yang kamu cari</option>
+              <option value="Chocolate, Nutty">Chocolate, Nutty</option>
+              <option value="Caramel, Sweet">Caramel, Sweet</option>
+              <option value="Fruity, Floral">Fruity, Floral</option>
+              <option value="Citrus, Bright">Citrus, Bright</option>
+              <option value="Balanced">Balanced</option>
+              <option value="Bold, Smoky">Bold, Smoky</option>
+              <option value="Custom Taste Profile">Custom Taste Profile</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="acidity">Acidity *</label>
+            <select id="acidity" name="acidity" required>
+              <option value="">Pilih tingkat acidity</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="body">Body *</label>
+            <select id="body" name="body" required>
+              <option value="">Pilih tekstur body</option>
+              <option value="Light">Light</option>
+              <option value="Medium">Medium</option>
+              <option value="Full">Full</option>
+            </select>
+          </div>
+
+          <div class="field full-width">
+            <label for="sweetness">Sweetness *</label>
+            <select id="sweetness" name="sweetness" required>
+              <option value="">Pilih tingkat sweetness</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- BUSINESS REQUIREMENT -->
+      <section class="form-section">
+        <div class="section-heading">
+          <span class="section-number">03</span>
+          <h2>Business Requirement</h2>
+          <span class="section-rule"></span>
+        </div>
+
+        <div class="fields-grid">
+          <div class="field full-width">
+            <label for="estimated_quantity">Estimated Monthly Requirement *</label>
+            <select
+              id="estimated_quantity"
+              name="estimated_quantity"
+              required
+            >
+              <option value="">Estimasi volume bulanan kamu</option>
+              <option value="5">5 kg / month</option>
+              <option value="10">10 kg / month</option>
+              <option value="20">20 kg / month</option>
+              <option value="30">30 kg / month</option>
+              <option value="50">50 kg / month</option>
+              <option value="100">100 kg / month</option>
+              <option value="150">150 kg / month</option>
+              <option value="200">200 kg / month</option>
+              <option value="300">300 kg / month</option>
+              <option value="500">500 kg+ / month</option>
+            </select>
+          </div>
+
+          <div class="field full-width">
+            <label for="additional_notes">Additional Notes</label>
+            <textarea
+              id="additional_notes"
+              name="additional_notes"
+              placeholder="Bagikan sedikit tentang konsep, layanan, atau kebutuhan kopi bisnis kamu. Misalnya menu, target harga, atau kebutuhan khusus."
+              maxlength="2000"
+            ></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- SUBMIT -->
+      <div class="form-actions">
+        <div
+          id="formMessage"
+          class="form-message"
+          role="status"
+          aria-live="polite"
+        ></div>
+
+        <button type="submit" class="submit-button" id="submitButton">
+          Submit Request <span>↗</span>
+        </button>
+
+        <p class="required-note">
+          * Wajib diisi. Tim RD Roastery akan menghubungi kamu untuk
+          membahas kebutuhan dan proses berikutnya.
+        </p>
+      </div>
+    </form>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a class="brand" href="/index.html">
+          <span class="brand-mark">RD</span>
+          <span class="brand-name">ROASTERY</span>
+        </a>
+
+        <p class="footer-tagline">Crafted to Perfection</p>
+      </div>
+
+      <div class="footer-info">
+        <div class="footer-column">
+          <h3>Explore</h3>
+          <a href="/index.html">Home</a>
+          <a href="/products.html">Our Coffee</a>
+          <a href="/business.html">Business</a>
+          <a href="/about.html">Our Story</a>
+        </div>
+
+        <div class="footer-column">
+          <h3>Meet + Talk</h3>
+          <p>Jl. Caringin No. 27, Bandung IDN</p>
+          <a href="mailto:hello@rdroastery.com">hello@rdroastery.com</a>
+          <a href="tel:+628973506708">+62 897 350 6708</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 RD Roastery. All rights reserved.</span>
+
+      <div class="legal-links">
+        <span>Privacy</span>
+        <span>Terms</span>
+        <span>Responsible Sourcing</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    const profileForm = document.getElementById("profileForm");
+    const formMessage = document.getElementById("formMessage");
+    const submitButton = document.getElementById("submitButton");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "CLOSE ×" : "MENU ☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "MENU ☰";
+      });
+    });
+
+    function showMessage(message, type) {
+      formMessage.textContent = message;
+      formMessage.className = "form-message " + type;
+      formMessage.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }
+
+    profileForm.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      if (!profileForm.checkValidity()) {
+        profileForm.reportValidity();
+        return;
+      }
+
+      const formData = new FormData(profileForm);
+      const payload = Object.fromEntries(formData.entries());
+
+      // Sesuaikan estimasi kuantitas menjadi angka untuk database MySQL.
+      payload.estimated_quantity = Number(payload.estimated_quantity);
+
+      submitButton.disabled = true;
+      submitButton.innerHTML = "Sending Request...";
+
+      formMessage.className = "form-message";
+      formMessage.textContent = "";
+
+      try {
+        const response = await fetch("/api/custom-requests", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(
+            result.message ||
+            "Request belum berhasil dikirim. Silakan coba kembali."
+          );
+        }
+
+        showMessage(
+          "Thank you! Request kamu berhasil dikirim ke RD Roastery. Tim kami akan menghubungi kamu untuk diskusi lebih lanjut.",
+          "success"
+        );
+
+        profileForm.reset();
+      } catch (error) {
+        console.error("Custom profile submission error:", error);
+
+        showMessage(
+          error.message ||
+          "Terjadi kendala saat mengirim request. Pastikan server berjalan lalu coba kembali.",
+          "error"
+        );
+      } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = 'Submit Request <span>↗</span>';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,529 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | RD Roastery</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #f5eee5;
+            background: #1b130e;
+            overflow-x: hidden;
+        }
+
+        /* BACKGROUND VIDEO */
+        .login-video {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .video-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(22, 13, 8, 0.62);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* MAIN LAYOUT */
+        .login-page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 58% 42%;
+            position: relative;
+            isolation: isolate;
+        }
+
+        /* LEFT BRAND SECTION */
+        .brand-section {
+            padding: 45px 7%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #f5eee5;
+            text-decoration: none;
+            width: fit-content;
+        }
+
+        .brand-logo span {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 36px;
+        }
+
+        .brand-logo small {
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .brand-content {
+            max-width: 570px;
+            margin-bottom: 15px;
+        }
+
+        .eyebrow,
+        .form-eyebrow {
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            color: #d1c2b1;
+            margin-bottom: 24px;
+        }
+
+        .brand-content h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(42px, 5vw, 76px);
+            line-height: 1.05;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .brand-description {
+            max-width: 480px;
+            font-size: 14px;
+            line-height: 1.9;
+            color: #e0d5c9;
+            margin-bottom: 185px;
+        }
+
+        .brand-location {
+            margin-top: 45px;
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: #d1c2b1;
+        }
+
+        /* RIGHT LOGIN SECTION */
+        .form-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 45px 7%;
+
+            /* TRANSPARENT LOGIN BACKGROUND */
+            background: rgba(30, 20, 14, 0.20);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 480px;
+            background: transparent;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+        }
+
+        .form-eyebrow {
+            margin-bottom: 18px;
+        }
+
+        .login-form h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(38px, 4vw, 54px);
+            font-weight: normal;
+            margin-bottom: 15px;
+        }
+
+        .form-description {
+            font-size: 13px;
+            line-height: 1.9;
+            color: #d4c7b9;
+            margin-bottom: 42px;
+        }
+
+        /* FORM LABELS */
+        .login-form label {
+            display: block;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            color: #f0e6dc;
+        }
+
+        /* TRANSPARENT INPUTS */
+        .login-form input {
+            width: 100%;
+            height: 58px;
+            padding: 0 17px;
+            font-size: 14px;
+            font-family: inherit;
+            color: #fff8f0;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(238, 224, 209, 0.45);
+            outline: none;
+            margin-bottom: 28px;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .login-form input::placeholder {
+            color: #c0b2a4;
+        }
+
+        .login-form input:focus {
+            border-color: #e7d2bb;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        /* PASSWORD SHOW/HIDE */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 65px;
+        }
+
+        .password-wrapper button {
+            position: absolute;
+            right: 14px;
+            top: 18px;
+            border: none;
+            background: transparent;
+            color: #d8c7b6;
+            cursor: pointer;
+            font-size: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        /* LOGIN BUTTON */
+        .login-button {
+            width: 100%;
+            min-height: 60px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #211710;
+            color: #f8eee3;
+            border: 1px solid rgba(245, 232, 218, 0.65);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: background 0.25s;
+        }
+
+        .login-button:hover {
+            background: #493020;
+        }
+
+        .login-button span {
+            font-size: 12px;
+        }
+
+        .login-button:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+
+        /* BACK LINK */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            color: #e0d2c3;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+
+        /* LOGIN MESSAGE */
+        .login-message {
+            display: none;
+            padding: 12px 14px;
+            margin-top: 18px;
+            font-size: 12px;
+            line-height: 1.6;
+            border: 1px solid rgba(238, 224, 209, 0.35);
+            background: rgba(20, 12, 8, 0.35);
+            color: #f5eee5;
+        }
+
+        .login-message.show {
+            display: block;
+        }
+
+        /* FOOTER */
+        .form-footer {
+            margin-top: 48px;
+            padding-top: 22px;
+            border-top: 1px solid rgba(238, 224, 209, 0.3);
+            text-align: center;
+            color: #c8b8a8;
+            font-size: 10px;
+            line-height: 2;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 800px) {
+            .login-page {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-section {
+                min-height: auto;
+                padding: 28px;
+            }
+
+            .brand-content {
+                margin-top: 65px;
+            }
+
+            .brand-content h1 {
+                font-size: 44px;
+            }
+
+            .brand-description {
+                font-size: 12px;
+            }
+
+            .brand-location {
+                margin-top: 25px;
+                margin-bottom: 10px;
+            }
+
+            .form-section {
+                padding: 40px 28px;
+                background: rgba(25, 16, 11, 0.35);
+            }
+
+            .login-form h2 {
+                font-size: 42px;
+            }
+
+            .form-description {
+                margin-bottom: 30px;
+            }
+
+            .form-footer {
+                margin-top: 35px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- BACKGROUND VIDEO -->
+    <video class="login-video" autoplay muted loop playsinline>
+        <source src="kopi.mp4" type="video/mp4">
+        Browser kamu tidak mendukung pemutaran video.
+    </video>
+
+    <div class="video-overlay"></div>
+
+    <main class="login-page">
+
+        <!-- LEFT: BRANDING -->
+        <section class="brand-section">
+
+            <a href="index.html" class="brand-logo">
+                <span>RD</span>
+                <small>ROASTERY</small>
+            </a>
+
+            <div class="brand-content">
+                <p class="eyebrow">— &nbsp; BEHIND EVERY ROAST</p>
+
+                <h1>Mahakarya Kopi<br>Pilihan.</h1>
+
+                <p class="brand-description">
+                    Every bean has a story. Every roast has a purpose.
+                    Welcome to the place where we build better coffee,
+                    one profile at a time.
+                </p>
+
+                <p class="brand-location">
+                    SPECIALTY COFFEE · BANDUNG, INDONESIA
+                </p>
+            </div>
+
+        </section>
+
+        <!-- RIGHT: LOGIN FORM -->
+        <section class="form-section">
+
+            <div class="login-form">
+
+                <p class="form-eyebrow">RD ROASTERY · ADMIN PORTAL</p>
+
+                <h2>Welcome Back.</h2>
+
+                <p class="form-description">
+                    Sign in to manage products and custom coffee profile requests.
+                    <br>
+                    Masuk untuk mengelola operasional RD Roastery.
+                </p>
+
+                <form id="loginForm">
+
+                    <label for="email">EMAIL ADDRESS</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="admin@rdroastery.com"
+                        autocomplete="username"
+                        required
+                    >
+
+                    <label for="password">PASSWORD</label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button type="button" id="togglePassword">
+                            SHOW
+                        </button>
+
+                    </div>
+
+                    <button type="submit" class="login-button" id="loginButton">
+                        <span>SIGN IN TO DASHBOARD</span>
+                        <span>↗</span>
+                    </button>
+
+                    <div
+                        id="loginMessage"
+                        class="login-message"
+                        role="status"
+                        aria-live="polite"
+                    ></div>
+
+                </form>
+
+                <a href="index.html" class="back-link">
+                    ← Back to RD Roastery
+                </a>
+
+                <div class="form-footer">
+                    <p>Authorized personnel only.</p>
+                    <p>RD Roastery Administration</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // SHOW / HIDE PASSWORD
+        const passwordInput = document.getElementById("password");
+        const togglePassword = document.getElementById("togglePassword");
+
+        togglePassword.addEventListener("click", function () {
+            const isPassword = passwordInput.type === "password";
+
+            passwordInput.type = isPassword ? "text" : "password";
+            togglePassword.textContent = isPassword ? "HIDE" : "SHOW";
+        });
+
+        // LOGIN API
+        const loginForm = document.getElementById("loginForm");
+        const loginButton = document.getElementById("loginButton");
+        const loginMessage = document.getElementById("loginMessage");
+
+        loginForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = passwordInput.value;
+
+            loginButton.disabled = true;
+            loginButton.querySelector("span").textContent = "SIGNING IN...";
+            loginMessage.classList.remove("show");
+            loginMessage.textContent = "";
+
+            try {
+                const response = await fetch("/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.message || data.error || "Email atau password salah."
+                    );
+                }
+
+                // Save the login response for the admin pages.
+                // Supports common response shapes from the existing API.
+                const adminData =
+                    data.admin ||
+                    data.user ||
+                    data.data ||
+                    data;
+
+                localStorage.setItem("rd_admin", JSON.stringify(adminData));
+
+                loginMessage.textContent = "Login berhasil. Mengalihkan ke dashboard...";
+                loginMessage.classList.add("show");
+
+                window.location.href = "admin-dashboard.html";
+
+            } catch (error) {
+                loginMessage.textContent =
+                    error.message || "Tidak dapat terhubung ke server.";
+                loginMessage.classList.add("show");
+
+                loginButton.disabled = false;
+                loginButton.querySelector("span").textContent =
+                    "SIGN IN TO DASHBOARD";
+            }
+        });
+    </script>
+
+</body>
+</html>

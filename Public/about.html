@@ -1,0 +1,1025 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f3efe6">
+  <title>About Us | RD Roastery</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #f3efe6;
+      --paper: #faf8f3;
+      --ink: #211711;
+      --muted: #655b52;
+      --line: #ded7cb;
+      --green: #414b39;
+      --gold: #b59a70;
+      --white: #fffdf8;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* NAVBAR: MATCH INDEX.HTML */
+    .navbar {
+      height: 60px;
+      padding: 0 5.8%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--cream);
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 26px;
+      line-height: 1;
+      letter-spacing: 1px;
+    }
+
+    .brand-name {
+      font-family: "DM Sans", Arial, sans-serif;
+      font-size: 7px;
+      font-weight: 600;
+      letter-spacing: 0.35px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 27px;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 7px 0;
+      color: var(--ink);
+      font-size: 8px;
+      font-weight: 400;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.6;
+    }
+
+    .nav-links a.active::after {
+      content: "";
+      position: absolute;
+      height: 1px;
+      background: var(--ink);
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: 0;
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* HERO VIDEO */
+    .hero-video {
+      position: relative;
+      width: 100%;
+      height: min(760px, calc(100vh - 60px));
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      background: var(--ink);
+      color: var(--white);
+      isolation: isolate;
+    }
+
+    .hero-video__background {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-video__overlay {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(33, 23, 17, 0.76) 0%,
+          rgba(33, 23, 17, 0.48) 48%,
+          rgba(33, 23, 17, 0.18) 100%
+        ),
+        linear-gradient(
+          0deg,
+          rgba(33, 23, 17, 0.35),
+          transparent 40%
+        );
+    }
+
+    .hero-video__content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 90px 9%;
+    }
+
+    .hero-video__eyebrow {
+      display: inline-block;
+      margin-bottom: 26px;
+      color: #e0d1b8;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+    }
+
+    .hero-video h1 {
+      max-width: 1000px;
+      margin: 0;
+      color: #faf8f3;
+      font-family: var(--serif);
+      font-size: clamp(64px, 8.5vw, 112px);
+      font-weight: 500;
+      line-height: 0.92;
+      letter-spacing: -0.045em;
+      text-shadow: 0 3px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    .hero-video h1 em {
+      color: #e0d1b8;
+      font-weight: 400;
+      font-style: italic;
+      -webkit-text-stroke: 0;
+    }
+
+    .hero-video__content p {
+      max-width: 400px;
+      margin: 28px 0 30px;
+      color: rgba(250, 248, 243, 0.88);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .hero-video__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 22px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(250, 248, 243, 0.7);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-decoration: none;
+      transition: gap 0.25s ease;
+    }
+
+    .hero-video__link:hover {
+      gap: 30px;
+    }
+
+    .hero-video__link span {
+      font-size: 17px;
+    }
+
+    .hero-video__bottom {
+      position: absolute;
+      right: 9%;
+      bottom: 28px;
+      left: 9%;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: rgba(250, 248, 243, 0.8);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      flex-shrink: 0;
+      background: var(--gold);
+    }
+
+    /* OUR STORY */
+    .story {
+      padding: 115px 9%;
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      align-items: center;
+      gap: clamp(50px, 8vw, 110px);
+      background: var(--paper);
+    }
+
+    .story__visual {
+      position: relative;
+      min-width: 0;
+    }
+
+    .story__image {
+      width: 100%;
+      height: 510px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .story__image-caption {
+      position: absolute;
+      right: -20px;
+      bottom: 28px;
+      max-width: 200px;
+      padding: 18px 22px;
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .story__image-caption strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 500;
+    }
+
+    .story__image-caption span {
+      display: block;
+      margin-top: 5px;
+      color: rgba(250, 248, 243, 0.75);
+      font-size: 9px;
+      line-height: 1.7;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .story__content h2 {
+      margin: 0 0 25px;
+      font-family: var(--serif);
+      font-size: clamp(48px, 5vw, 74px);
+      font-weight: 500;
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .story__content h2 em {
+      color: var(--green);
+      font-weight: 400;
+    }
+
+    .story__content p {
+      max-width: 500px;
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .story__signature {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--green);
+      font-family: var(--serif);
+      font-size: 23px;
+      font-style: italic;
+    }
+
+    /* BRAND STATEMENT */
+    .statement {
+      padding: 100px 9%;
+      background: var(--green);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .statement__eyebrow {
+      display: block;
+      margin-bottom: 25px;
+      color: rgba(250, 248, 243, 0.7);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+    }
+
+    .statement h2 {
+      max-width: 1000px;
+      margin: 0 auto;
+      font-family: var(--serif);
+      font-size: clamp(42px, 6vw, 78px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+    }
+
+    .statement h2 em {
+      color: #e0d1b8;
+      font-weight: 400;
+    }
+
+    .statement__line {
+      width: 48px;
+      height: 1px;
+      margin: 32px auto 0;
+      background: var(--gold);
+    }
+
+    /* PHILOSOPHY */
+    .philosophy {
+      padding: 110px 9%;
+      background: var(--cream);
+    }
+
+    .philosophy__heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .philosophy__heading h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(48px, 6vw, 76px);
+      font-weight: 500;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+
+    .philosophy__heading h2 em {
+      color: var(--green);
+      font-weight: 400;
+    }
+
+    .philosophy__heading p {
+      max-width: 300px;
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+    }
+
+    .principle {
+      min-width: 0;
+      padding: 30px 28px 20px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .principle + .principle {
+      padding-left: 28px;
+    }
+
+    .principle:last-child {
+      border-right: 0;
+    }
+
+    .principle__number {
+      display: block;
+      margin-bottom: 42px;
+      color: var(--gold);
+      font-family: var(--serif);
+      font-size: 19px;
+    }
+
+    .principle h3 {
+      margin: 0 0 14px;
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 500;
+    }
+
+    .principle p {
+      max-width: 290px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 70px 9% 25px;
+      background: #211711;
+      color: var(--white);
+    }
+
+    .footer__main {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 60px;
+      padding-bottom: 55px;
+    }
+
+    .footer__brand {
+      font-family: var(--serif);
+      font-size: 42px;
+      line-height: 1;
+      letter-spacing: -1.5px;
+    }
+
+    .footer__tagline {
+      max-width: 260px;
+      margin-top: 18px;
+      color: rgba(250, 248, 243, 0.6);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .footer__title {
+      margin: 0 0 22px;
+      color: #d4c1a1;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .footer__links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 13px;
+    }
+
+    .footer__links a,
+    .footer__links p {
+      margin: 0;
+      color: rgba(250, 248, 243, 0.7);
+      font-size: 12px;
+      line-height: 1.8;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer__links a:hover {
+      color: var(--white);
+    }
+
+    .footer__bottom {
+      padding-top: 22px;
+      border-top: 1px solid rgba(250, 248, 243, 0.15);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: rgba(250, 248, 243, 0.45);
+      font-size: 9px;
+      letter-spacing: 0.08em;
+    }
+
+    /* RESPONSIVE */
+    @media (min-width: 1500px) {
+      .story,
+      .philosophy {
+        padding-right: max(9%, calc((100% - 1250px) / 2));
+        padding-left: max(9%, calc((100% - 1250px) / 2));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .story {
+        padding: 85px 7%;
+        gap: 45px;
+      }
+
+      .story__image {
+        height: 440px;
+      }
+
+      .philosophy {
+        padding: 90px 7%;
+      }
+
+      .philosophy__heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 22px;
+      }
+
+      .footer {
+        padding-right: 7%;
+        padding-left: 7%;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .navbar {
+        height: 62px;
+        padding: 0 5%;
+      }
+
+      .brand-mark {
+        font-size: 25px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 61px;
+        left: 0;
+        right: 0;
+        padding: 18px 5% 22px;
+        background: var(--cream);
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        font-size: 11px;
+        padding: 6px 0;
+      }
+
+      .hero-video {
+        height: calc(88vh - 62px);
+        min-height: 560px;
+        max-height: 720px;
+      }
+
+      .hero-video__background {
+        object-position: 58% center;
+      }
+
+      .hero-video__overlay {
+        background:
+          linear-gradient(
+            90deg,
+            rgba(33, 23, 17, 0.76),
+            rgba(33, 23, 17, 0.35)
+          ),
+          linear-gradient(
+            0deg,
+            rgba(33, 23, 17, 0.35),
+            transparent 65%
+          );
+      }
+
+      .hero-video__content {
+        padding: 65px 7%;
+      }
+
+      .hero-video__eyebrow {
+        margin-bottom: 24px;
+        font-size: 9px;
+        letter-spacing: 0.16em;
+      }
+
+      .hero-video h1 {
+        font-size: clamp(52px, 11vw, 78px);
+        line-height: 0.95;
+      }
+
+      .hero-video__content p {
+        max-width: 310px;
+        font-size: 12px;
+      }
+
+      .hero-video__bottom {
+        right: 7%;
+        bottom: 22px;
+        left: 7%;
+        font-size: 8px;
+        letter-spacing: 0.08em;
+      }
+
+      .story {
+        padding: 75px 7%;
+        grid-template-columns: 1fr;
+        gap: 42px;
+      }
+
+      .story__image {
+        height: 390px;
+      }
+
+      .story__image-caption {
+        right: -8px;
+        bottom: 20px;
+      }
+
+      .story__content h2 {
+        font-size: clamp(48px, 12vw, 65px);
+      }
+
+      .statement {
+        padding: 78px 7%;
+      }
+
+      .statement h2 {
+        font-size: clamp(42px, 10vw, 62px);
+      }
+
+      .philosophy {
+        padding: 80px 7%;
+      }
+
+      .philosophy__heading {
+        margin-bottom: 40px;
+      }
+
+      .principles {
+        grid-template-columns: 1fr;
+      }
+
+      .principle,
+      .principle + .principle {
+        padding: 25px 0 30px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .principle:last-child {
+        border-bottom: 0;
+      }
+
+      .principle__number {
+        margin-bottom: 20px;
+      }
+
+      .footer {
+        padding: 55px 7% 22px;
+      }
+
+      .footer__main {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 25px;
+      }
+
+      .footer__brand-column {
+        grid-column: 1 / -1;
+      }
+
+      .footer__bottom {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .hero-video h1 {
+        font-size: 49px;
+      }
+
+      .hero-video__bottom {
+        font-size: 7px;
+      }
+
+      .footer__main {
+        grid-template-columns: 1fr;
+      }
+
+      .footer__brand-column {
+        grid-column: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .hero-video__link,
+      .nav-links a,
+      .footer__links a {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <a class="brand" href="/index.html" aria-label="RD Roastery Home">
+      <span class="brand-mark">RD</span>
+      <span class="brand-name">ROASTERY</span>
+    </a>
+
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="navLinks"
+    >
+      MENU ☰
+    </button>
+
+    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+      <a href="/index.html">Home</a>
+      <a href="/products.html">Product</a>
+      <a href="/business.html">Business</a>
+      <a href="/about.html" class="active" aria-current="page">About Us</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- FULL-WIDTH VIDEO HERO -->
+    <section class="hero-video">
+      <video
+        class="hero-video__background"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=2000&q=85"
+      >
+        <source
+          src="Roastery.mp4"
+          type="video/mp4"
+        >
+        Browser kamu tidak mendukung video.
+      </video>
+
+      <div class="hero-video__overlay"></div>
+
+      <div class="hero-video__content">
+        <span class="hero-video__eyebrow">
+          RD ROASTERY · SPECIALTY COFFEE
+        </span>
+
+        <h1>
+          Bebas Memilih,<br>
+          <em>Tepat Meracik.</em>
+        </h1>
+
+        <p>
+          Every bean has a story. We craft the roast
+          that brings its character to life.
+        </p>
+
+        <a href="/products.html" class="hero-video__link">
+          EXPLORE OUR COFFEE <span>↗</span>
+        </a>
+      </div>
+
+      <div class="hero-video__bottom">
+        <span>CRAFTED WITH INTENTION</span>
+        <span>01 — OUR STORY</span>
+      </div>
+    </section>
+
+    <!-- OUR STORY -->
+    <section class="story">
+      <div class="story__visual">
+        <img
+          class="story__image"
+          src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1100&q=85"
+          alt="Suasana dan proses persiapan kopi"
+          loading="lazy"
+        >
+
+        <div class="story__image-caption">
+          <strong>Since the first roast.</strong>
+          <span>Made with care, crafted with purpose.</span>
+        </div>
+      </div>
+
+      <div class="story__content">
+        <div class="section-label">OUR STORY</div>
+
+        <h2>
+          Meracik rasa,<br>
+          menantang <em>detail.</em>
+        </h2>
+
+        <p>
+          Di RD Roastery, kopi bukan sekadar biji yang disangrai.
+          Setiap origin punya karakter, setiap proses punya cerita,
+          dan setiap roast punya peran dalam membentuk rasa di cangkir.
+        </p>
+
+        <p>
+          Kami percaya bahwa good coffee starts with understanding.
+          Mulai dari karakter beans, metode seduh, hingga kebutuhan
+          setiap coffee shop, semuanya menjadi bagian dari proses
+          roasting yang kami kerjakan dengan penuh perhatian.
+        </p>
+
+        <p>
+          Because the right roast isn't just about following a profile.
+          It's about finding the character that makes every cup feel right.
+        </p>
+
+        <div class="story__signature">
+          Thoughtfully roasted. Intentionally crafted.
+        </div>
+      </div>
+    </section>
+
+    <!-- BRAND STATEMENT -->
+    <section class="statement">
+      <span class="statement__eyebrow">OUR POINT OF VIEW</span>
+
+      <h2>
+        Good coffee is not a coincidence.
+        It's crafted with <em>intention.</em>
+      </h2>
+
+      <div class="statement__line"></div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section class="philosophy">
+      <div class="philosophy__heading">
+        <div>
+          <div class="section-label">WHAT WE BELIEVE</div>
+
+          <h2>
+            Our coffee,<br>
+            our <em>principles.</em>
+          </h2>
+        </div>
+
+        <p>
+          Three principles that guide every decision we make,
+          from selecting the beans to developing the right roast profile.
+        </p>
+      </div>
+
+      <div class="principles">
+        <article class="principle">
+          <span class="principle__number">01 /</span>
+          <h3>Consistency Matters</h3>
+          <p>
+            Rasa yang baik harus bisa diandalkan. Kami memperhatikan
+            setiap detail roasting untuk menjaga karakter kopi tetap
+            konsisten dari satu batch ke batch berikutnya.
+          </p>
+        </article>
+
+        <article class="principle">
+          <span class="principle__number">02 /</span>
+          <h3>Roasted for Your Needs</h3>
+          <p>
+            Every coffee has its own potential. Kami menyesuaikan
+            roasting profile dengan karakter beans, metode seduh,
+            dan kebutuhan rasa yang ingin dicapai.
+          </p>
+        </article>
+
+        <article class="principle">
+          <span class="principle__number">03 /</span>
+          <h3>Build Better Coffee Together</h3>
+          <p>
+            Kami percaya kopi terbaik lahir dari kolaborasi.
+            Melalui komunikasi dan eksplorasi bersama, kami membantu
+            coffee shop menemukan karakter kopi yang tepat.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__main">
+      <div class="footer__brand-column">
+        <div class="footer__brand">RD Roastery</div>
+
+        <p class="footer__tagline">
+          Thoughtfully roasted coffee, crafted to bring out
+          the character in every bean.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="footer__title">Explore</h3>
+
+        <div class="footer__links">
+          <a href="/index.html">Home</a>
+          <a href="/products.html">Our Coffee</a>
+          <a href="/business.html">Business</a>
+          <a href="/about.html">About Us</a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="footer__title">Visit + Talk</h3>
+
+        <div class="footer__links">
+          <p>Bandung, West Java, Indonesia</p>
+          <a href="mailto:hello@rdroastery.com">
+            hello@rdroastery.com
+          </a>
+          <a href="https://wa.me/" target="_blank" rel="noopener noreferrer">
+            Let's talk coffee ↗
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>
+        © <span id="currentYear"></span> RD Roastery. All rights reserved.
+      </span>
+      <span>ROASTED WITH INTENTION.</span>
+    </div>
+  </footer>
+
+  <script>
+    // MOBILE NAVIGATION
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "CLOSE ×" : "MENU ☰";
+    });
+
+    // CLOSE MOBILE MENU AFTER CLICKING A LINK
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "MENU ☰";
+      });
+    });
+
+    // AUTOMATIC COPYRIGHT YEAR
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
